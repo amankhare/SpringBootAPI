@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -78,7 +80,7 @@ public class MainController{
 		return ResponseEntity.ok().body(data);
 	}*/
 	
-    @GetMapping(path="/add") 
+//    @GetMapping(path="/add") 
 	public @ResponseBody String addNewUser (@RequestParam String Type
 			, @RequestParam boolean Valid, @RequestParam String Value,@RequestParam String Domain) {
 
@@ -86,11 +88,21 @@ public class MainController{
 		n.setType(Type);
 		n.setValid(Valid);
 		n.setValue(Value);
+		System.out.println(Value);
 		n.setDomain(Domain);
 		userRepository.save(n);
-		return "Saved";
+		return "Saved";	
 	}
-	
+    
+    @PostMapping(path = "/add")
+	public ResponseEntity<DataListModel> addUs(@RequestBody DataListModel request)
+	{
+    	//System.out.println(request.DataSet.get(0));
+    	for(DataSet temp:request.getDataSet())
+    		userRepository.save(temp);
+    	return ResponseEntity.ok().body(request);
+	}
+    
 	@GetMapping(path="/all")
 	public @ResponseBody Iterable<DataSet> getAllData() {
 		System.out.println("--------------------------------------------------------------");
