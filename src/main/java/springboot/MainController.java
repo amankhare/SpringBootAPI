@@ -32,57 +32,15 @@ public class MainController{
 		return "Yo";
 	}
 	
-	/*@GetMapping(path="/{id}")
-	public ResponseEntity<DataSet> getDataById(@PathVariable(value="id") Long id)
-	{
-		DataSet data=userRepository.findOne(id);
-		if(data == null)
-		{
-			 return ResponseEntity.badRequest().build();
-		}
-		return ResponseEntity.ok().body(data);
-	}
-	*/
-	
 	@GetMapping(path="/{domain}")
 	public ResponseEntity<DataListModel> getDataByType(@PathVariable(value="domain") String domain,@RequestParam("type")String type)
 	{
-	/*	List<DataSet> a =new ArrayList<>();
-		DataSet dd=new DataSet();
-		dd.setId(12);
-		dd.setDomain("ng");
-		dd.setType("asdasd");
-		dd.setValid(true);
-		dd.setValue("asdasdasdasd");
-		DataSet dd1=new DataSet();
-		dd1.setId(12);
-		dd1.setDomain("ng");
-		dd1.setType("asdasd");
-		dd1.setValid(true);
-		dd1.setValue("asdasdasdasd");
-		a.add(dd);
-		a.add(dd1);
-	*/	DataListModel aa=new DataListModel();
+		DataListModel aa=new DataListModel();
 		aa.setDataSet(daoFunctions.findUsers(type,domain));
-		//aa.setDataSet(a);
 		return ResponseEntity.ok().body(aa);
 	}
 	
 
-/*//    @GetMapping(path="/add") 
-	public @ResponseBody String addNewUser (@RequestParam String Type
-			, @RequestParam boolean Valid, @RequestParam String Value,@RequestParam String Domain) {
-
-		DataSet n = new DataSet();
-		n.setType(Type);
-		n.setValid(Valid);
-		n.setValue(Value);
-		System.out.println(Value);
-		n.setDomain(Domain);
-		userRepository.save(n);
-		return "Saved";	
-	}*/
-    
     @PostMapping(path = "/add")
 	public ResponseEntity<DataListModel> addUser(@RequestBody DataListModel request)
 	{
@@ -101,7 +59,6 @@ public class MainController{
     
 	@GetMapping(path="/all")
 	public @ResponseBody Iterable<DataSet> getAllData() {
-		System.out.println("--------------------------------------------------------------");
 		return userRepository.findAll();
 	}
 }
