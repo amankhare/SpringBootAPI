@@ -41,14 +41,13 @@ public class MainController{
 			 return ResponseEntity.badRequest().build();
 		}
 		return ResponseEntity.ok().body(data);
-	}*/
+	}
+	*/
 	
 	@GetMapping(path="/{domain}")
 	public ResponseEntity<DataListModel> getDataByType(@PathVariable(value="domain") String domain,@RequestParam("type")String type)
 	{
-		System.out.println(type);
-		System.out.println("aman");
-		List<DataSet> a =new ArrayList<>();
+	/*	List<DataSet> a =new ArrayList<>();
 		DataSet dd=new DataSet();
 		dd.setId(12);
 		dd.setDomain("ng");
@@ -63,24 +62,14 @@ public class MainController{
 		dd1.setValue("asdasdasdasd");
 		a.add(dd);
 		a.add(dd1);
-		DataListModel aa=new DataListModel();
+	*/	DataListModel aa=new DataListModel();
 		aa.setDataSet(daoFunctions.findUsers(type,domain));
 		//aa.setDataSet(a);
 		return ResponseEntity.ok().body(aa);
 	}
 	
-	/*@GetMapping(path="/{domain}")
-	public ResponseEntity<DataSet> getDataByType(@PathVariable(value="domain") String domain , @RequestParam("type") String type)
-	{
-		DataSet data[]=userRepository.findAll(val);
-		if(data == null)
-		{
-			 return ResponseEntity.badRequest().build();
-		}
-		return ResponseEntity.ok().body(data);
-	}*/
-	
-//    @GetMapping(path="/add") 
+
+/*//    @GetMapping(path="/add") 
 	public @ResponseBody String addNewUser (@RequestParam String Type
 			, @RequestParam boolean Valid, @RequestParam String Value,@RequestParam String Domain) {
 
@@ -92,14 +81,21 @@ public class MainController{
 		n.setDomain(Domain);
 		userRepository.save(n);
 		return "Saved";	
-	}
+	}*/
     
     @PostMapping(path = "/add")
-	public ResponseEntity<DataListModel> addUs(@RequestBody DataListModel request)
+	public ResponseEntity<DataListModel> addUser(@RequestBody DataListModel request)
 	{
-    	//System.out.println(request.DataSet.get(0));
     	for(DataSet temp:request.getDataSet())
     		userRepository.save(temp);
+    	return ResponseEntity.ok().body(request);
+	}
+    
+    @PostMapping(path = "/update")
+	public ResponseEntity<DataListModel> updateUser(@RequestBody DataListModel request)
+	{
+    	for(DataSet temp:request.getDataSet())
+    		daoFunctions.updateData(temp);
     	return ResponseEntity.ok().body(request);
 	}
     
