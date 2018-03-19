@@ -5,7 +5,7 @@ import java.util.List;
 
 public class DataListModel {
 	
-	List<DataSet> DataSet=new ArrayList<>();
+	List<DataSet> DataSet=null;
 
 	public List<DataSet> getDataSet() {
 		return DataSet;

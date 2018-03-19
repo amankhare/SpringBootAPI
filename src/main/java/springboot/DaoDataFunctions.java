@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Component
-public class DaoFunctions {
+public class DaoDataFunctions {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -34,7 +34,7 @@ public class DaoFunctions {
 		//data.split(",").length)).append(")");
 		try {
 			con =  jdbcTemplate.getDataSource().getConnection();
-			ps =  con.prepareStatement(query.toString());
+			ps =  con.prepareStatement(query);
 			System.out.println(data);
 			ps.setString(1, domain);
 			int count=2;

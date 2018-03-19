@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller  
 @RequestMapping(path="/data") 
-public class MainController{
+public class DataController{
 	
 
 	@Autowired
 	private UserRepository userRepository;
 	
 	@Autowired
-	private DaoFunctions daoFunctions; 
+	private DaoDataFunctions daoFunctions; 
 
 	@GetMapping(path="/print")
 	public @ResponseBody String pp()
