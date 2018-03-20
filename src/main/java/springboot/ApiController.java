@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller  
@@ -57,6 +58,14 @@ public class ApiController {
 		}
 		else
 			return ResponseEntity.badRequest().body("Validation Error!!");
+	}
+	
+	@GetMapping(path = "/search")
+	public ResponseEntity search(@RequestParam(name="Domain",required=true)String Domain,@RequestParam(name="Name",required=false,defaultValue="")String Name)
+	{
+		ApiListModel aa=new ApiListModel();
+		aa.setApiSet(daoApiFunctions.findSet(Domain, Name));
+		return ResponseEntity.ok().body(aa);
 	}
 	
 }
